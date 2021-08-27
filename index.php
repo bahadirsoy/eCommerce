@@ -1,5 +1,6 @@
 <?php
 
+    //database connection and session
     require "SharedFiles/databaseConnection.php";
     session_start();
 
@@ -23,7 +24,7 @@
     <?php
         require "SharedFiles/navbar.php";
 
-        echo print_r($_SESSION['cartItems']);
+        echo print_r($_SESSION['cartItems']); //For debug
     ?>
 
     <div class="container mt-5">
@@ -61,6 +62,7 @@
     </script>
 
     <script type="text/javascript">
+        //ajax request if user adds product to cart
         $(document).ready(function () {
             $('.addToCartButton').click(function (e) {
                 //console.log($(this).serialize());
@@ -76,7 +78,7 @@
                     function (response) {
                         var jsonData = JSON.parse(response);
 
-                        // user is logged in successfully in the back-end
+                        // user has added the product successfully
                         // let's redirect
                         if (jsonData.success == "1") {
                             //location.href = 'my_profile.php'

@@ -1,24 +1,26 @@
 <?php
-/*$hashedpass = password_hash("123", PASSWORD_DEFAULT);
-exit($hashedpass);*/
+
 require "../SharedFiles/databaseConnection.php";
 
 $username = trim($_POST['username']);
 $password = trim($_POST['password']);
 
+//Check if all inputs are set
 if (!isset($username) || !isset($password) || $username==="" || $password==="") {
 
     header("Location: ../loginPage.php?result=empty&username=".$username);
     exit();
   
-} else{
+} else{//If so, check if that user exist
     $stmt = $conn->query("SELECT * FROM user WHERE username='$username'");
 
     if($rowCount = $stmt->rowCount()){
         if($rowCount > 0){
             $user = $stmt->fetch();
-            //exit(password_verify($user['password'], $password));
+            
+            //verify password(hashed password)
             if(password_verify($password, $user['password'])){
+                //correct info, start sessions and log in
                 session_start();
                 $_SESSION['username']=$username;
                 $_SESSION['password']=$password;

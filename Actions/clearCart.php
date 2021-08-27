@@ -1,9 +1,8 @@
 <?php
 
-    require "../SharedFiles/databaseConnection.php";
+    //Unset cart session
     session_start();
-    session_unset();
-    session_destroy();
+    session_unset($_SESSION['cartItems']);
 
     header("Location: ../index.php");
 
