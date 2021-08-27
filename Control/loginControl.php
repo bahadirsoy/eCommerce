@@ -23,7 +23,6 @@ if (!isset($username) || !isset($password) || $username==="" || $password==="") 
                 //correct info, start sessions and log in
                 session_start();
                 $_SESSION['username']=$username;
-                $_SESSION['password']=$password;
                 
                 header("Location: ../index.php");
             } else{
