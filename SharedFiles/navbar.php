@@ -33,6 +33,7 @@
                     ';
                 } else{ //If logged in
                     echo '
+                    <a href="./profile.php" class="btn btn-outline-secondary mr-2" type="button">Profile</a>
                     <a href="Actions/logout.php" class="btn btn-outline-danger mr-2" type="button">Log out</a>
                     ';
                 }

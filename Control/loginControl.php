@@ -22,7 +22,12 @@ if (!isset($username) || !isset($password) || $username==="" || $password==="") 
             if(password_verify($password, $user['password'])){
                 //correct info, start sessions and log in
                 session_start();
-                $_SESSION['username']=$username;
+                $_SESSION['username'] = $username;
+
+                //get id of user and assign to new session
+                $row = $conn->query("SELECT id FROM user WHERE username='$username'")->fetch();
+                $id = $row['id'];
+                $_SESSION['id'] = $id;
                 
                 header("Location: ../index.php");
             } else{

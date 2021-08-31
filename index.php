@@ -23,7 +23,7 @@
 
     <?php
         require "SharedFiles/navbar.php";
-
+        
         //print_r($_SESSION['cartItems']); //For debug
     ?>
 
