@@ -29,11 +29,11 @@
             $row = $conn->query("SELECT * FROM product WHERE productId='$productId'")->fetch();
 
             echo '
-            <div class="container col-12">
+            <div class="container col-12 mt-5" style="max-height: 175px;">
                 <div class="card">
                     <div class="row g-0">
                         <div class="col-md-4">
-                            <img src="'.$row['productImg'].'" class="img-fluid rounded-start" alt="img cannot be found">
+                            <img src="'.$row['productImg'].'" style="max-height: 175px;" class="img-fluid rounded-start" alt="img cannot be found">
                         </div>
                         <div class="col-md-8">
                             <div class="card-body">
@@ -47,6 +47,7 @@
             ';
         }
     ?>
+    
 
     <!-- Option 1: Bootstrap Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"

@@ -3,6 +3,7 @@
         <a href="./index.php" class="navbar-brand">E-Commerce</a>
         <div class="d-flex">
             <?php 
+
                 if(isset($_SESSION['username'])){
                     echo '
                     <div class="my-auto mr-2"> Welcome '.$_SESSION['username'].'
@@ -10,9 +11,18 @@
                 }
             ?>
             <a href="./shoppingCart.php" class="btn btn-outline-success mr-2" type="submit">
-                Cart <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                Cart <i class="fa fa-shopping-cart" aria-hidden="true"></i> <span href="#" class="badge badge-primary">
+                    <?php
+                        if(isset($_SESSION['cartItems'])){
+                            $cartItems = array_count_values($_SESSION['cartItems']);
+                            echo count($cartItems);
+                        } else{
+                            echo "0";
+                        }
+                    ?>
+                </span>
             </a>
-
+            
             <a href="Actions/clearCart.php" class="btn btn-outline-warning mr-2" type="button">Clear Cart</a>
             <?php
                 //If not logged in yet

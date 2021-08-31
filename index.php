@@ -24,7 +24,7 @@
     <?php
         require "SharedFiles/navbar.php";
 
-        print_r($_SESSION['cartItems']); //For debug
+        //print_r($_SESSION['cartItems']); //For debug
     ?>
 
     <div class="container mt-5">
@@ -38,13 +38,13 @@
                     $stmt = $conn->query("SELECT * FROM product");
                     while ($row = $stmt->fetch()) {
                         echo '
-                        <div class="col-4">
+                        <div class="col-4 mt-4">
                             <div class="card">
-                                <img src="'.$row["productImg"].'"
+                                <img src="'.$row["productImg"].'" 
                                 class="card-img-top" alt="...">
                                 <div class="card-body">
                                     <a href=""><h5 class="card-title">'.$row["productName"].'</h5></a>
-                                    <p class="card-text">'.$row['productInfo'].'</p>
+                                    <p class="card-text" style="height: 100px;">'.$row['productInfo'].'</p>
                                     <a id="'.$row['productId'].'" href="" class="btn btn-success addToCartButton">Add to cart</a>
                                     <a href="productDetails.php?id='.$row['productId'].'" class="btn btn-primary">Details</a>
                                 </div>
