@@ -24,7 +24,7 @@
     <?php
         require "SharedFiles/navbar.php";
 
-        echo print_r($_SESSION['cartItems']); //For debug
+        print_r($_SESSION['cartItems']); //For debug
     ?>
 
     <div class="container mt-5">
@@ -68,7 +68,7 @@
                 //console.log($(this).serialize());
                 e.preventDefault();
                 var id = $(this).attr("id");
-                console.log(id);
+                //console.log(id);
                 $.ajax({
                     type: "POST",
                     url: 'Actions/addToCart.php?productId=' + id,
@@ -85,8 +85,12 @@
                             //$('#blank').val(jsonData['password']);
 
                             $('#alert').css("display", "block");
-                            console.log(jsonData);
-                        } else {
+                            console.log(1);
+                        } else if(jsonData.success == "0"){
+                            $('#alert').css("display", "block");
+                            console.log(0);
+                        }
+                        else {
                             alert('Invalid Credentials!');
                         }
                     },

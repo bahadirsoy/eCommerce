@@ -22,9 +22,11 @@
 
     <?php
         require "SharedFiles/navbar.php";
-
-        foreach ($_SESSION['cartItems'] as &$id) {
-            $row = $conn->query("SELECT * FROM product WHERE productId=$id")->fetch();
+        
+        $cartItems = array_count_values($_SESSION['cartItems']);
+        foreach ($cartItems as $productId => $quantity) {
+            
+            $row = $conn->query("SELECT * FROM product WHERE productId='$productId'")->fetch();
 
             echo '
             <div class="container col-12">
@@ -35,7 +37,7 @@
                         </div>
                         <div class="col-md-8">
                             <div class="card-body">
-                                <h2 class="card-title">'.$row['productName'].'</h2>
+                                <h2 class="card-title">'.$row['productName'].''."<span class='float-right'>$quantity pieces</span>".'</h2>
                                 <p class="card-text mt-5">'.$row['productDescription'].'</p>
                             </div>
                         </div>
