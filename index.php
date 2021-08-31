@@ -87,8 +87,7 @@
                             $('#alert').css("display", "block");
                             console.log(1);
                         } else if(jsonData.success == "0"){
-                            $('#alert').css("display", "block");
-                            console.log(0);
+                            alert('There was some error!');
                         }
                         else {
                             alert('Invalid Credentials!');

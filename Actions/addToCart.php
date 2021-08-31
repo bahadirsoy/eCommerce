@@ -16,18 +16,28 @@ if(isset($_GET['productId']) && intval($_GET['productId']) > 0){
         $productId = intval($_GET['productId']);
         array_push($_SESSION['cartItems'] ,$productId);
 
+        echo json_encode(array(
+            'success' => 1,
+        ));
+
     } else{ //If cart has been already initialized
         //Check that item has already in cart
         $productId = $_GET['productId'];
         array_push($_SESSION['cartItems'] ,$productId);
+
+        echo json_encode(array(
+            'success' => 1,
+        ));
         
     }
     
     /*$conn->query("INSERT INTO departman
     VALUES (NULL, 'deneme1', 'deneme2', 'deneme3', '0')")->fetch();*/
     
+    
+} else{
     echo json_encode(array(
-        'success' => 1,
+        'success' => 0,
     ));
 }
 
