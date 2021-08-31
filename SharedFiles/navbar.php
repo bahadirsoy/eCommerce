@@ -5,8 +5,10 @@
             <?php 
 
                 if(isset($_SESSION['username'])){
+                    $id = $_SESSION['id'];
+                    $row = $conn->query("SELECT username FROM user WHERE id='$id'")->fetch();
                     echo '
-                    <div class="my-auto mr-2"> Welcome '.$_SESSION['username'].'
+                    <div class="my-auto mr-2"> Welcome '.$row['username'].'
                     </div>';
                 }
             ?>
