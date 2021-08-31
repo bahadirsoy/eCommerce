@@ -42,7 +42,7 @@
                         echo $row['username'];
                     ?>">
                     <span style="color: green;">
-                        <a class="username-update-icon" href="">
+                        <a class="username-update-icon" href="#">
                             <i class="fa fa-check fa-2x ml-3 update-icon" aria-hidden="true" data-toggle="tooltip"
                                 data-placement="left" title="Update email"></i>
                         </a>
@@ -52,7 +52,8 @@
                     <label class="d-block" for="password">Password</label>
                     <input type="password" class="form-control d-inline w-75" id="password" name="password">
                     <span style="color: green;">
-                        <a href=""><i class="fa fa-check fa-2x ml-3" aria-hidden="true" data-toggle="tooltip"
+                        <a class="password-update-icon" href="">
+                            <i class="fa fa-check fa-2x ml-3 update-icon" aria-hidden="true" data-toggle="tooltip"
                                 data-placement="left" title="Update email"></i></a>
                     </span>
                 </div>
@@ -64,7 +65,8 @@
                         echo $row['firstname'];
                     ?>">
                     <span style="color: green;">
-                        <a href=""><i class="fa fa-check fa-2x ml-3" aria-hidden="true" data-toggle="tooltip"
+                        <a class="firstname-update-icon" href="">
+                            <i class="fa fa-check fa-2x ml-3 update-icon" aria-hidden="true" data-toggle="tooltip"
                                 data-placement="left" title="Update email"></i></a>
                     </span>
                 </div>
@@ -76,7 +78,8 @@
                         echo $row['surname'];
                     ?>">
                     <span style="color: green;">
-                        <a href=""><i class="fa fa-check fa-2x ml-3" aria-hidden="true" data-toggle="tooltip"
+                        <a class="surname-update-icon" href="">
+                            <i class="fa fa-check fa-2x ml-3 update-icon" aria-hidden="true" data-toggle="tooltip"
                                 data-placement="left" title="Update email"></i></a>
                     </span>
                 </div>
@@ -88,7 +91,8 @@
                         echo $row['email'];
                     ?>">
                     <span style="color: green;">
-                        <a href=""><i class="fa fa-check fa-2x ml-3" aria-hidden="true" data-toggle="tooltip"
+                        <a class="email-update-icon" href="">
+                            <i class="fa fa-check fa-2x ml-3 update-icon" aria-hidden="true" data-toggle="tooltip"
                                 data-placement="left" title="Update email"></i></a>
                     </span>
                 </div>
