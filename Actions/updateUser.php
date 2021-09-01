@@ -59,6 +59,22 @@ if(isset($_GET['column']) && isset($_GET['input'])){
             ));
             break;
 
+        case "address-add-icon":
+            $input = $_GET['input'];
+            $sql = "INSERT INTO address (addressId, addressLine) VALUES (?, ?)";
+            $conn->prepare($sql)->execute([NULL, $input]);
+
+            $addressId = $conn->lastInsertId();
+
+            $id = $_SESSION['id'];
+            $sql = "INSERT INTO useraddress (id, userId, addressId) VALUES (?, ?, ?)";
+            $conn->prepare($sql)->execute([NULL, $id, $addressId]);
+
+            echo json_encode(array(
+                'success' => 1,
+            ));
+            break;
+
 
         default:
             echo json_encode(array(

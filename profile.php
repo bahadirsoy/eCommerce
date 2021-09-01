@@ -114,6 +114,53 @@
                         echo date('d-m-Y', strtotime($row['registerdate']));
                     ?>">
                 </div>
+                <div class="form-group">
+                    <label class="d-block" for="address">Add new address</label>
+                    <input type="text" class="form-control d-inline w-75" id="address" name="address">
+                    <span style="color: green;">
+                        <a class="address-add-icon" href="">
+                            <i class="far fa-plus-square fa-2x ml-3 update-icon" aria-hidden="true" data-toggle="tooltip"
+                                data-placement="left" title="Update email"></i></a>
+                    </span>
+                </div>
+
+                <?php
+                    $id = $_SESSION['id'];
+                    $addresses = $conn->query("SELECT * FROM useraddress, address 
+                    WHERE useraddress.addressid = address.addressid AND 
+                    useraddress.userid = '$id'")->fetchAll();
+
+                    $count = 1;
+                    foreach ($addresses as $row) {
+                        echo '
+                        <div class="container mt-5">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="card text-center">
+                                        <div class="card-header">
+                                            Address '.$count++.'
+                                        </div>
+                                        <div class="card-body">
+                                            <h5 class="card-title">Address Line:</h5>
+                                            <p class="card-text">'.$row['addressLine'].'</p>
+                                            <a href="Actions/completeTheOrder.php?addressId='.$row['addressId'].'" class="btn btn-primary">Choose as a address</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        ';
+                    }
+
+                    if($count){
+                        echo '
+                        <div class="alert alert-danger mt-5" role="alert">
+                            You do not have any address yet!
+                        </div>
+                        ';
+                    }
+                ?>
+
             </div>
         </div>
     </div>
