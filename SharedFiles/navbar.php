@@ -25,8 +25,15 @@
                 </span>
             </a>
             
-            <a href="Actions/clearCart.php" class="btn btn-outline-warning mr-2" type="button">Clear Cart</a>
+            
             <?php
+                //If there is an item on the cart
+                if(isset($_SESSION['cartItems'])){
+                    echo '
+                    <a href="Actions/clearCart.php" class="btn btn-outline-warning mr-2" type="button">Clear Cart</a>
+                    ';
+                }
+
                 //If not logged in yet
                 if(!isset($_SESSION['username'])){
                     echo '
@@ -35,6 +42,7 @@
                     ';
                 } else{ //If logged in
                     echo '
+                    <a href="./orders.php" class="btn btn-outline-info mr-2" type="button">My Orders</a>
                     <a href="./profile.php" class="btn btn-outline-secondary mr-2" type="button">Profile</a>
                     <a href="Actions/logout.php" class="btn btn-outline-danger mr-2" type="button">Log out</a>
                     ';
