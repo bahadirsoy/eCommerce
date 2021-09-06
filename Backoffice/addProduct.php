@@ -41,11 +41,12 @@
                 <input type="text" class="form-control" id="productDescription" name="productDescription" placeholder="Product description">
             </div>
             <div class="form-group">
-                <label for="productImage">Product Image:</label>
-                <input type="text" class="form-control" id="productImage" name="productImage" placeholder="Product image">
+                <label for="productImg">Product Image:</label>
+                <input type="text" class="form-control" id="productImg" name="productImg" placeholder="Product image">
             </div>
 
             <button type="submit" class="btn btn-primary">Submit</button>
+            <a href="../index.php" class="btn btn-warning">Return main page</a>
         </form>
     </div>
 
