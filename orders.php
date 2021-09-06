@@ -22,6 +22,17 @@
 
     <title>E-Commerce</title>
 
+    <style>
+        td.details-control {
+            background: url('resources/details_open.png') no-repeat center center;
+            cursor: pointer;
+        }
+
+        tr.details td.details-control {
+            background: url('resources/details_close.png') no-repeat center center;
+        }
+    </style>
+
 </head>
 
 <body>
@@ -31,9 +42,10 @@
         
     ?>
 
-    <table id="example" class="ui celled table hover" style="width:100%">
+    <table id="example" class="ui celled table cell-border mdl-data-table" style="width:100%">
         <thead>
             <tr>
+                <th></th>
                 <th>Products</th>
                 <th>Order Date</th>
                 <th>Status</th>
@@ -41,73 +53,77 @@
         </thead>
     </table>
 
-        <?php
 
-        /*echo '
-        <div class="mt-5"></div>
-        <table id="example" class="ui celled table hover" style="width:100%">
-            <thead>
-                <tr>
-                    <th>Products</th>
-                    <th>Address</th>
-                    <th>Order Date</th>
-                    <th>Status</th>
-                </tr>
-            </thead>
-            <tbody>
-        ';
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous">
+    </script>
 
-        $userId = $_SESSION['id'];
-        $data = $conn->query("SELECT * FROM orderdemand, address 
-        WHERE orderdemand.addressId = address.addressId
-        AND orderdemand.userId = '$userId';
-        ")->fetchAll();
-        
-        foreach ($data as $row) {
-            $orderItems = json_decode($row['products'], true);
-
-            echo '
-            <tr>
-                <td>
-            ';
-            foreach($orderItems as $productId => $quantity){
-                $product = $conn->query("SELECT * FROM product WHERE productId='$productId'")->fetch();
-
-                echo $product['productName'].' x'.$quantity.' ';
-            }
-            echo '</td>';
-
-            echo '
-                <td>'.$row['addressLine'].'</td>
-                <td>'.$row['orderDate'].'</td>
-                <td>'.$row['status'].'</td>
-            </tr>';
-
+    <script>
+        function format(d) {
+            //console.log(jQuery.type(d[0][0]));
+            return 'Receiver name: ' + d[0][0] + '<br>' +
+            'Receiver surname: ' + d[0][1] + '<br>' +
+            'Address: ' + d[0][2] + '<br>';
         }
 
-        echo '
-            </tbody>
-        </table>
-        ';*/
+        $(document).ready(function () {
+            var dt = $('#example').DataTable({
+                "processing": true,
+                "serverSide": true,
+                "ajax": "data.php",
+                "columns": [{
+                        "class": "details-control",
+                        "orderable": false,
+                        "data": null,
+                        "defaultContent": ""
+                    },
+                    {
+                        
+                    },
+                    {
+                        
+                    },
+                    {
+                        
+                    }
+                ],
+            });
 
+            // Array to track the ids of the details displayed rows
+            var detailRows = [];
 
+            $('#example tbody').on('click', 'tr td.details-control', function () {
+                var tr = $(this).closest('tr');
+                var row = dt.row(tr);
+                var idx = $.inArray(tr.attr('id'), detailRows);
 
-    ?>
+                if (row.child.isShown()) {
+                    tr.removeClass('details');
+                    row.child.hide();
 
-        <!-- Option 1: Bootstrap Bundle with Popper -->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous">
-        </script>
+                    // Remove from the 'open' array
+                    detailRows.splice(idx, 1);
+                } else {
+                    tr.addClass('details');
+                    row.child(format(row.data())).show();
 
-        <script>
-            $(document).ready(function () {
-                var table = $('#example').DataTable({
-                    "processing": true,
-                    "serverSide": true,
-                    "ajax": "data.php",
+                    // Add to the 'open' array
+                    if (idx === -1) {
+                        detailRows.push(tr.attr('id'));
+                    }
+                }
+            });
+
+            // On each draw, loop over the `detailRows` array and show any child rows
+            dt.on('draw', function () {
+                $.each(detailRows, function (i, id) {
+                    $('#' + id + ' td.details-control').trigger('click');
                 });
             });
-        </script>
+
+        });
+    </script>
 
 </body>
 

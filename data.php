@@ -16,9 +16,37 @@ if(isset($_GET['draw'])) {
     // parameter represents the DataTables column identifier. In this case simple
     // indexes
     $columns = array(
+        array(
+            'db' => 'orderId',
+            'dt' => 0,
+            'formatter' => function( $d, $row ) {
+                //include database connection
+                require "SharedFiles/databaseConnection.php";
+
+                //select order row with id and get column values
+                $row = $conn->query("SELECT * FROM orderDemand WHERE orderId='$d'")->fetch();
+                $addressId = $row['addressId'];
+                $userId = $row['userId'];
+
+                //select address line
+                $row = $conn->query("SELECT addressLine FROM address WHERE addressId='$addressId'")->fetch();
+                $addressLine = $row['addressLine'];
+
+                //select user values
+                $row = $conn->query("SELECT firstname, surname FROM user WHERE id='$userId'")->fetch();
+                $firstname = $row['firstname'];
+                $surname = $row['surname'];
+
+                //create array
+                $array = array($firstname, $surname, $addressLine);
+
+                //return address line
+                return $array;
+            }
+        ),
         array( 
             'db' => 'products', 
-            'dt' => 0,
+            'dt' => 1,
             'formatter' => function($d, $row){
                 //include database connection
                 require "SharedFiles/databaseConnection.php";
@@ -41,7 +69,7 @@ if(isset($_GET['draw'])) {
         ),
         array( 
             'db' => 'orderDate',  
-            'dt' => 1,
+            'dt' => 2,
             'formatter' => function($d, $row){
                 //string time to date
                 $dateValue = strtotime($d);
@@ -103,7 +131,7 @@ if(isset($_GET['draw'])) {
         ),
         array( 
             'db' => 'status', 
-            'dt' => 2,
+            'dt' => 3,
             'formatter' => function($d, $row){
                 switch($d){
                     case 1:
