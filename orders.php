@@ -35,7 +35,6 @@
         <thead>
             <tr>
                 <th>Products</th>
-                <th>Address</th>
                 <th>Order Date</th>
                 <th>Status</th>
             </tr>
@@ -102,16 +101,10 @@
 
         <script>
             $(document).ready(function () {
-                $('#example').DataTable({
+                var table = $('#example').DataTable({
                     "processing": true,
                     "serverSide": true,
                     "ajax": "data.php",
-                    "columns": [
-                    { "data": "products" },
-                    { "data": "addressLine" },
-                    { "data": "orderDate" },
-                    { "data": "status" },
-            ]
                 });
             });
         </script>
