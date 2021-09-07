@@ -31,6 +31,11 @@
         tr.details td.details-control {
             background: url('resources/details_close.png') no-repeat center center;
         }
+
+        .deleteOrderDemand {
+            background: url('resources/deleteOrderDemand.png') no-repeat center center;
+            cursor: pointer;
+        }
     </style>
 
 </head>
@@ -42,13 +47,16 @@
         
     ?>
 
+    <!-- <button class="btn btn-secondary btn-sm my-3 mx-2" id="deleteButton">Delete rows</button> -->
+
     <table id="example" class="ui celled table cell-border mdl-data-table" style="width:100%">
         <thead>
             <tr>
-                <th></th>
+                <th data-orderable="false"></th>
                 <th>Products</th>
                 <th>Order Date</th>
                 <th>Status</th>
+                <th data-orderable="false"></th>
             </tr>
         </thead>
     </table>
@@ -61,10 +69,9 @@
 
     <script>
         function format(d) {
-            //console.log(jQuery.type(d[0][0]));
             return 'Receiver name: ' + d[0][0] + '<br>' +
-            'Receiver surname: ' + d[0][1] + '<br>' +
-            'Address: ' + d[0][2] + '<br>';
+                'Receiver surname: ' + d[0][1] + '<br>' +
+                'Address: ' + d[0][2] + '<br>';
         }
 
         $(document).ready(function () {
@@ -72,6 +79,7 @@
                 "processing": true,
                 "serverSide": true,
                 "ajax": "data.php",
+                responsive: true,
                 "columns": [{
                         "class": "details-control",
                         "orderable": false,
@@ -79,15 +87,21 @@
                         "defaultContent": ""
                     },
                     {
-                        
+
                     },
                     {
-                        
+
                     },
                     {
-                        
-                    }
+
+                    },
+                    {
+                        "orderable": false,
+                    },
                 ],
+                "order": [
+                    [2, 'desc']
+                ]
             });
 
             // Array to track the ids of the details displayed rows
@@ -121,6 +135,14 @@
                     $('#' + id + ' td.details-control').trigger('click');
                 });
             });
+
+            /*$('#example tbody').on('click', 'tr', function () {
+                $(this).toggleClass('selected');
+            });
+
+            $('#deleteButton').click(function () {
+                dt.row('.selected').remove().draw(false);
+            });*/
 
         });
     </script>

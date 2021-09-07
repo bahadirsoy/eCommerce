@@ -18,6 +18,16 @@ if(isset($_GET['draw'])) {
     $columns = array(
         array(
             'db' => 'orderId',
+            'dt' => 'DT_RowId',
+            'formatter' => function( $d, $row ) {
+                // Technically a DOM id cannot start with an integer, so we prefix
+                // a string. This can also be useful if you have multiple tables
+                // to ensure that the id is unique with a different prefix
+                return $d;
+            }
+        ),
+        array(
+            'db' => 'orderId',
             'dt' => 0,
             'formatter' => function( $d, $row ) {
                 //include database connection
@@ -149,6 +159,17 @@ if(isset($_GET['draw'])) {
                 }
             }
         ),
+        array( 
+            'db' => 'orderId', 
+            'dt' => 4,
+            'formatter' => function($d, $row){
+                return '
+                <a href="Actions/deleteOrderDemand.php?id='.$d.'">
+                    <img src="Resources/deleteOrderDemand.png" alt="invalid path">
+                </a>
+                ';
+            }
+        ),
     );
     
     // SQL server connection information
@@ -171,35 +192,8 @@ if(isset($_GET['draw'])) {
     $where = "userId ='$id'";
     $data = SSP::complex( $_GET, $sql_details, $table, $primaryKey, $columns, null, $where);
 
-    //print_r(json_decode($data["data"][0][0], true));
-    //print_r($data["data"]);
-
-    /*for($i=0; $i<count($data["data"]); $i++){
-        foreach(json_decode($data["data"][$i][0], true) as $productId => $quantity){
-            echo $productId."=>".$quantity."<br>";
-        }
-        echo "<br>";
-    }*/
-
     echo json_encode($data);
 
     exit;
 
 }
-
-
-/*$userId = $_SESSION['id'];
-$data = $conn->query("SELECT products, addressLine, orderDate, status FROM orderdemand, address 
-        WHERE orderdemand.addressId = address.addressId
-        AND orderdemand.userId = '$userId';
-        ")->fetchAll();
-
-
-foreach ($data as $row) {
-    echo json_encode($row);
-    //var_dump($row);
-}
-
-/*for($i=0; $i<count($data); $i++){
-    print_r($data[$i]);
-}*/
