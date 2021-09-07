@@ -164,7 +164,7 @@ if(isset($_GET['draw'])) {
             'dt' => 4,
             'formatter' => function($d, $row){
                 return '
-                <a href="Actions/deleteOrderDemand.php?id='.$d.'">
+                <a href="#" class="deleteOrderDemandButton" id='.$d.'>
                     <img src="Resources/deleteOrderDemand.png" alt="invalid path">
                 </a>
                 ';

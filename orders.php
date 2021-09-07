@@ -47,7 +47,9 @@
         
     ?>
 
-    <!-- <button class="btn btn-secondary btn-sm my-3 mx-2" id="deleteButton">Delete rows</button> -->
+    <div class="alert alert-danger" role="alert" style="display: none;" id="alert">
+        Order demand has been removed
+    </div>
 
     <table id="example" class="ui celled table cell-border mdl-data-table" style="width:100%">
         <thead>
@@ -74,7 +76,9 @@
                 'Address: ' + d[0][2] + '<br>';
         }
 
+
         $(document).ready(function () {
+
             var dt = $('#example').DataTable({
                 "processing": true,
                 "serverSide": true,
@@ -136,13 +140,38 @@
                 });
             });
 
-            /*$('#example tbody').on('click', 'tr', function () {
-                $(this).toggleClass('selected');
-            });
 
-            $('#deleteButton').click(function () {
-                dt.row('.selected').remove().draw(false);
-            });*/
+            //delete orderdemand according to given id in data.php
+            $("#example").on("click", ".deleteOrderDemandButton", function (e) {
+                e.preventDefault();
+                var id = $(this).attr("id");
+                var parentElement = $(this).parent().parent();
+
+                $.ajax({
+                    type: "POST",
+                    url: 'Actions/deleteOrderDemand.php?orderId=' + id,
+                    data: ""
+                }).then(
+                    // resolve/success callback
+                    function (response) {
+                        var jsonData = JSON.parse(response);
+
+                        // user has added the product successfully
+                        if (jsonData.success == "1") {
+                            $('#alert').css("display", "block");
+                            parentElement.remove();
+                        } else if (jsonData.success == "0") {
+                            alert('There was some error!');
+                        } else {
+                            alert('Invalid Credentials!');
+                        }
+                    },
+                    // reject/failure callback
+                    function () {
+                        alert('Error :)');
+                    }
+                );
+            });
 
         });
     </script>
